@@ -50,6 +50,7 @@ const Tasks = () => {
                 </div>
             }
             body={
+                tasks.length > 0 ?
                 <table className="w-full table-fixed divide-y divide-gray-300">
                     <thead>
                         <tr>
@@ -78,7 +79,7 @@ const Tasks = () => {
                             })
                         }
                     </tbody>
-                </table>
+                </table> : <></>
             }
             footer={
                 <Button

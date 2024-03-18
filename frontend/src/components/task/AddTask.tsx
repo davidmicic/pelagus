@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { Task } from "../../types/Task"
+import { useEffect } from "react"
 import Input from "../ui/Input"
 import TextArea from "../ui/TextArea"
 import { useNavigate, useParams } from "react-router-dom"
