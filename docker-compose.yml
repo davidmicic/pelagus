@@ -1,0 +1,28 @@
+services:
+  frontend:
+    build: frontend
+    ports:
+      - 4173:4173
+    volumes:
+      - ${PWD}/frontend/dist:/app/dist
+
+  backend:
+    build: backend
+    env_file:
+      - ./backend/.docker.env
+    depends_on:
+      - database
+    ports:
+      - 3000:3000
+    command: "npm start"
+    volumes:
+      - ${PWD}/backend/build:/app/build
+
+  database:
+    build: backend/postgres
+    ports:
+      - "5432:5432"
+    environment: 
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: pelagus

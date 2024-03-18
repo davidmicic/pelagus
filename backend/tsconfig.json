@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "outDir": "./build",
+        "incremental": true,
+        "newLine": "LF",
+        "allowJs": false,
+        "target": "es2017",
+        "lib": [
+            "es2017"
+        ],
+        "module": "commonjs",
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "alwaysStrict": true,
+        "diagnostics": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "strictNullChecks": false,
+        "pretty": false,
+        "types": [
+            "node"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}

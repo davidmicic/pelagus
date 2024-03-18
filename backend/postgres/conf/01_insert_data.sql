@@ -1,0 +1,1 @@
+INSERT INTO public.User (username, "password") VALUES ('test', 'test');
