@@ -75,6 +75,10 @@ export function updateTask(db: IDatabase): ExpressRouteFunc {
 
             const description = req.body.description
             const title = req.body.title
+            if (!description || !title) {
+                errors.bad_request(res)
+                return
+            }
 
             const update: Task = {id, title, description}
 
