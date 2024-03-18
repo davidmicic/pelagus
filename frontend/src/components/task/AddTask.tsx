@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Input from "../ui/Input"
 import TextArea from "../ui/TextArea"
 import { useNavigate, useParams } from "react-router-dom"
@@ -7,6 +7,7 @@ import Button from "../ui/Button"
 import Container from "../ui/Container"
 import { useForm } from "../hooks/useForm"
 import Logout from "../auth/Logout"
+import Error from "../errors/Error"
 
 const AddTask = () => {
     const navigate = useNavigate();
@@ -15,16 +16,21 @@ const AddTask = () => {
         setForm,
         onInputChange
       } = useForm({title: "", description: ""})
+      const [errorMessage, setErrorMessage] = useState<string>("")
 
 
     const { id } = useParams();
 
     useEffect(() => {
-        if (id) {
-            (async () => {
-                const task = await api.getTaskById(id)
-                setForm(task)
-            })()
+        try {
+            if (id) {
+                (async () => {
+                    const task = await api.getTaskById(id)
+                    setForm(task)
+                })()
+            }
+        } catch (e: any) {
+            setErrorMessage(e.message)
         }
     }, [])
 
@@ -33,13 +39,22 @@ const AddTask = () => {
     }
 
     const onAddButtonHandler = async () => {
-        await api.addNewTask({description: form.description, title: form.title})
-        navigateToAddTaskPage()
+        try {
+            await api.addNewTask({description: form.description, title: form.title})
+            navigateToAddTaskPage()
+        } catch (e: any) {
+            console.log(e)
+            setErrorMessage(e.message)
+        }
     }
 
     const onUpdateButtonHandler = async () => {
-        await api.updateTask(id!, {description: form.description, title: form.title})
-        navigateToAddTaskPage()
+        try {
+            await api.updateTask(id!, {description: form.description, title: form.title})
+            navigateToAddTaskPage()
+        } catch (e: any) {
+            setErrorMessage(e.message)
+        }
     }
 
     const navigateToAddTaskPage = () => {
@@ -61,10 +76,13 @@ const AddTask = () => {
             </div>
             }
             body={
-                <div className="w-4/12">
-                    <Input name={"title"} type={"text"} id={"title"} label="Title" value={form.title} onChange={onInputChange} />
-                    <TextArea name={"description"} type={"text"} id={"description"} label="Description" value={form.description} onChange={onInputChange} />
-                </div>
+                <>
+                    {errorMessage != '' && <Error message={errorMessage}/>}
+                    <div className="w-4/12">
+                        <Input name={"title"} type={"text"} id={"title"} label="Title" value={form.title} onChange={onInputChange} />
+                        <TextArea name={"description"} type={"text"} id={"description"} label="Description" value={form.description} onChange={onInputChange} />
+                    </div>
+                </>
             }
             footer={
                 <div className="flex flex-row justify-between">

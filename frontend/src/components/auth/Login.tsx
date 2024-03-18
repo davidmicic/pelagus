@@ -4,6 +4,8 @@ import Input from '../ui/Input';
 import { useForm } from '../hooks/useForm';
 import Button from '../ui/Button';
 import { useNavigate } from 'react-router-dom';
+import Error from '../errors/Error';
+import { useState } from 'react';
 
 
 const Login = () => {
@@ -12,14 +14,15 @@ const Login = () => {
     form,
     onInputChange
   } = useForm({username: "", password: ""})
-
+  const [errorMessage, setErrorMessage] = useState<string>("")
 
   const onLoginButtonClick = async () => {
-    console.log(form)
-    if (form.username && form.password) {
-      const jwt = await api.login(form.username, form.password)
-      localStorage.setItem("jwt", jwt)
-      navigate('/')
+    try {
+        const jwt = await api.login(form.username, form.password)
+        localStorage.setItem("jwt", jwt)
+        navigate('/')
+    } catch(e: any) {
+      setErrorMessage(e.message)
     }
   }
 
@@ -34,8 +37,9 @@ const Login = () => {
         }
         body={
           <div>
-             <Input placeholder={"Username"} name={"username"} type={"text"} id={"username"} label="Username" value={form.username} onChange={onInputChange} />
-             <Input placeholder={"Password"} name={"password"} type={"password"} id={"password"} label="Password" value={form.password} onChange={onInputChange} />
+            {errorMessage != '' && <Error message={errorMessage}/>}
+            <Input placeholder={"Username"} name={"username"} type={"text"} id={"username"} label="Username" value={form.username} onChange={onInputChange} />
+            <Input placeholder={"Password"} name={"password"} type={"password"} id={"password"} label="Password" value={form.password} onChange={onInputChange} />
           </div>
         }
         footer={

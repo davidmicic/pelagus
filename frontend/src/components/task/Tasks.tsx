@@ -7,16 +7,23 @@ import { useNavigate } from "react-router-dom"
 import Button from "../ui/Button"
 import Container from "../ui/Container"
 import Logout from "../auth/Logout"
+import Error from "../errors/Error"
 
 const Tasks = () => {
     const navigate = useNavigate();
     const [tasks, setTasks] = useState<Task[]>([])
+    const [errorMessage, setErrorMessage] = useState<string>("")
 
     useEffect(() => {
         (async () => {
-            const tasks = await api.getAllTasks()
-            if (tasks) {
-                setTasks(tasks)
+            try {
+                const tasks = await api.getAllTasks()
+    
+                if (tasks) {
+                    setTasks(tasks)
+                }
+            } catch (e: any) {
+                setErrorMessage(e.message)
             }
         })()
     }, [])
@@ -50,36 +57,41 @@ const Tasks = () => {
                 </div>
             }
             body={
-                tasks.length > 0 ?
-                <table className="w-full table-fixed divide-y divide-gray-300">
-                    <thead>
-                        <tr>
-                            <th className="w-3/12 px-3 py-3.5 text-left text-sm font-semibold text-primary">Title</th>
-                            <th className="w-8/12 px-3 py-3.5 text-left text-sm font-semibold text-primary">Description</th>
-                            <th className="w-1/12 px-3 py-3.5 text-left text-sm font-semibold text-primary">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            tasks.map((el, idx) => {
-                                return (
-                                    <>
-                                        <tr key={idx}>
-                                            <td className="w-full px-3 py-4 text-sm text-black-500" >{el.title}</td>
-                                            <td className="w-full px-3 py-4 text-sm text-black-500 break-words" >
-                                                    {el.description}
-                                            </td>
-                                            <td className="w-full px-3 py-4 text-sm text-black-500 flex flex-row text-right">
-                                                <Edit onEditTaskButtonHandler={() => onEditTaskButtonHandler(el.id!)} />
-                                                <Trash onDeleteTaskButtonHandler={() => onDeleteTaskButtonHandler(el.id!)}/>
-                                            </td>
-                                        </tr>
-                                    </>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table> : <></>
+                <>
+                    {errorMessage != '' && <Error message={errorMessage}/>}
+                    {   
+                        tasks.length > 0 ?
+                            <table className="w-full table-fixed divide-y divide-gray-300">
+                                <thead>
+                                    <tr>
+                                        <th className="w-3/12 px-3 py-3.5 text-left text-sm font-semibold text-primary">Title</th>
+                                        <th className="w-8/12 px-3 py-3.5 text-left text-sm font-semibold text-primary">Description</th>
+                                        <th className="w-1/12 px-3 py-3.5 text-left text-sm font-semibold text-primary">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        tasks.map((el, idx) => {
+                                            return (
+                                                <>
+                                                    <tr key={idx}>
+                                                        <td className="w-full px-3 py-4 text-sm text-black-500" >{el.title}</td>
+                                                        <td className="w-full px-3 py-4 text-sm text-black-500 break-words" >
+                                                                {el.description}
+                                                        </td>
+                                                        <td className="w-full px-3 py-4 text-sm text-black-500 flex flex-row text-right">
+                                                            <Edit onEditTaskButtonHandler={() => onEditTaskButtonHandler(el.id!)} />
+                                                            <Trash onDeleteTaskButtonHandler={() => onDeleteTaskButtonHandler(el.id!)}/>
+                                                        </td>
+                                                    </tr>
+                                                </>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                        </table> : <></>
+                    } 
+                </>
             }
             footer={
                 <Button
