@@ -6,5 +6,4 @@ To build and run the application, follow next steps:
 + execute the following command: ```make compose-run```
 
 
-Application is accesible on:
-```http://localhost:4173/```
+Application is accesible at: ```http://localhost:4173/```
