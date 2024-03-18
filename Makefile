@@ -15,12 +15,12 @@ frontend-run:
 
 compose-run:
 	cd backend && npx tsc
+	cd frontend && npm run build
 	docker-compose build
 	docker-compose up
 
 compose-backend-run:
 	cd backend && npx tsc
-	cd frontend && npm run build
 	docker-compose -f docker-compose-backend.yml build
 	docker-compose -f docker-compose-backend.yml up
 
