@@ -66,7 +66,7 @@ const AddTask = () => {
             header={
                 <div className="flex flex-row justify-between">
                 <div className="min-w-0 flex-1">
-                    <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+                    <h2 className="text-2xl font-bold leading-7 text-text sm:truncate sm:text-3xl sm:tracking-tight">
                     Add new task
                     </h2>
                 </div>
@@ -76,13 +76,15 @@ const AddTask = () => {
             </div>
             }
             body={
-                <>
+                <div>
                     {errorMessage != '' && <Error message={errorMessage}/>}
-                    <div className="w-4/12">
-                        <Input name={"title"} type={"text"} id={"title"} label="Title" value={form.title} onChange={onInputChange} />
-                        <TextArea name={"description"} type={"text"} id={"description"} label="Description" value={form.description} onChange={onInputChange} />
+                    <div className="flex flex-col items-center">
+                        <div className="w-4/12">
+                            <Input name={"title"} type={"text"} id={"title"} label="Title" value={form.title} onChange={onInputChange} />
+                            <TextArea name={"description"} type={"text"} id={"description"} label="Description" value={form.description} onChange={onInputChange} />
+                        </div>
                     </div>
-                </>
+                </div>
             }
             footer={
                 <div className="flex flex-row justify-between">

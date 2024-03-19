@@ -9,7 +9,7 @@ import PrivateRouteWrapper from "./components/auth/PrivateRouteWrapper";
 function App() {
   return (
     <ErrorBoundary fallback={<p>Something went wrong.</p>}>
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen flex justify-center items-center bg-background">
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />

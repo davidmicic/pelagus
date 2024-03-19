@@ -8,7 +8,7 @@ type PropsContainer = {
 
 export default function Container(props: PropsContainer) {
     return (
-        <div className="container flex flex-wrap flex-col max-w-7xl overflow-hidden">
+        <div className="container flex flex-wrap flex-col max-w-7xl">
             <div>{props.header}</div>
             <Divider />
             <div>{props.body}</div>
