@@ -9,8 +9,10 @@
 ### In case if make is not installed, follow next steps:
 + navigate to ```/pelagus``` folder 
 + execute commands: 
-    - docker-compose build
-    - docker-compose up
+	- cd backend && npm install && npx tsc && cd ..
+	- cd frontend && npm install && npm run build && cd ..
+	- docker-compose build
+	- docker-compose up
 
 
 ## Application

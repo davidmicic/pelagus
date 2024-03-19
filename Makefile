@@ -14,8 +14,8 @@ frontend-run:
 	docker run --name frontend -p 4173:4173 -v ${PWD}/frontend/dist:/app/dist -d pelagus_frontend
 
 compose-run:
-	cd backend && npx tsc
-	cd frontend && npm run build
+	cd backend && npm install && npx tsc
+	cd frontend && npm install && npm run build
 	docker-compose build
 	docker-compose up
 
