@@ -4,7 +4,7 @@ services:
     ports:
       - 4173:4173
     volumes:
-      - ${PWD}/frontend/dist:/app/dist
+      - ./frontend/dist:/app/dist
 
   backend:
     build: backend
@@ -16,7 +16,7 @@ services:
       - 3000:3000
     command: "npm start"
     volumes:
-      - ${PWD}/backend/build:/app/build
+      - ./backend/build:/app/build
 
   database:
     build: backend/postgres
