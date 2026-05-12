@@ -12,12 +12,12 @@ export function getAllTasks(db: IDatabase): ExpressRouteFunc {
         try {
             const tasks = await controller.getAllTasks(db);
             if (tasks) {
-                responses.ok_with_payload(res, tasks)
+                responses.okWithPayload(res, tasks)
                 return
             }
             responses.ok(res)
         } catch(e) {
-            errors.internal_server_error(res, e)
+            errors.internalServerError(res, e)
         }
     }
 }
@@ -27,18 +27,18 @@ export function getTaskById(db: IDatabase): ExpressRouteFunc {
         try {
             const id = Number(req.params.id)
             if (!id) {
-                errors.bad_request(res)
+                errors.badRequest(res)
                 return
             }
 
             const task = await controller.getTaskById(db, id);
             if (task) {
-                responses.ok_with_payload(res, task)
+                responses.okWithPayload(res, task)
                 return
             }
             responses.ok(res)
         } catch(e) {
-            errors.internal_server_error(res, e)
+            errors.internalServerError(res, e)
         }
     }
 }
@@ -49,7 +49,7 @@ export function addNewTask(db: IDatabase): ExpressRouteFunc {
             const description = req.body.description
             const title = req.body.title
             if (!description || !title) {
-                errors.bad_request(res)
+                errors.badRequest(res)
                 return
             }
 
@@ -58,7 +58,7 @@ export function addNewTask(db: IDatabase): ExpressRouteFunc {
             responses.ok(res)
         } catch(e: any) {
             if (e instanceof Error) {
-                errors.internal_server_error(res, e)
+                errors.internalServerError(res, e)
             }
         }
     }
@@ -69,14 +69,14 @@ export function updateTask(db: IDatabase): ExpressRouteFunc {
         try {
             const id = Number(req.params.id)
             if (!id) {
-                errors.bad_request(res)
+                errors.badRequest(res)
                 return
             }
 
             const description = req.body.description
             const title = req.body.title
             if (!description || !title) {
-                errors.bad_request(res)
+                errors.badRequest(res)
                 return
             }
 
@@ -86,7 +86,7 @@ export function updateTask(db: IDatabase): ExpressRouteFunc {
             responses.ok(res)
         } catch(e: any) {
             if (e instanceof Error) {
-                errors.internal_server_error(res, e)
+                errors.internalServerError(res, e)
             }
         }
     }
@@ -98,7 +98,7 @@ export function deleteTask(db: IDatabase): ExpressRouteFunc {
             const id = Number(req.params.id)
 
             if (!id) {
-                errors.bad_request(res)
+                errors.badRequest(res)
                 return
             }
 
@@ -106,7 +106,7 @@ export function deleteTask(db: IDatabase): ExpressRouteFunc {
             responses.ok(res)
         } catch(e: any) {
             if (e instanceof Error) {
-                errors.internal_server_error(res, e)
+                errors.internalServerError(res, e)
             }
         }
     }

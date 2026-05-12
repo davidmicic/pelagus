@@ -1,12 +1,12 @@
 import { Response } from 'express';
 
-export function internal_server_error(res: Response, e: Error) {
+export function internalServerError(res: Response, e: Error) {
     res.status(500).json({
         message: e.message
     })
 }
 
-export function bad_request(res: Response) {
+export function badRequest(res: Response) {
     res.sendStatus(400)
 }
 
