@@ -1,25 +1,25 @@
 import { IDatabase } from "../../database/database"
 import { Task } from "../../database/entities/Task";
 
-export async function getAllTasks(db: IDatabase): Promise<Task[]> {
-    const tasks = await db.getAllTasks();
+export async function get_all_tasks(db: IDatabase): Promise<Task[]> {
+    const tasks = await db.get_all_tasks();
     return tasks
 }
 
-export async function getTaskById(db: IDatabase, id: number): Promise<Task> {
-    const task = await db.getTaskById(id);
+export async function get_task_by_id(db: IDatabase, id: number): Promise<Task> {
+    const task = await db.get_task_by_id(id);
     return task
 }
 
-export async function addNewTask(db: IDatabase, title: string, description: string): Promise<void> {
-    await db.addNewTask(title, description);
+export async function add_new_task(db: IDatabase, title: string, description: string): Promise<void> {
+    await db.add_new_task(title, description);
 }
 
-export async function updateTask(db: IDatabase, update: Task): Promise<void> {
-    await db.updateTask(update);
+export async function update_task(db: IDatabase, update: Task): Promise<void> {
+    await db.update_task(update);
 }
 
-export async function deleteTask(db: IDatabase, id: number): Promise<void> {
-    await db.deleteTask(id);
+export async function delete_task(db: IDatabase, id: number): Promise<void> {
+    await db.delete_task(id);
 }
 

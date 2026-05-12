@@ -7,7 +7,7 @@ import { Task } from '../../database/entities/Task';
 
 type ExpressRouteFunc = (req: Request, res: Response, next?: NextFunction) => void | Promise<void>;
 
-export function getAllTasks(db: IDatabase): ExpressRouteFunc {
+export function get_all_tasks(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const tasks = await controller.getAllTasks(db);
@@ -22,7 +22,7 @@ export function getAllTasks(db: IDatabase): ExpressRouteFunc {
     }
 }
 
-export function getTaskById(db: IDatabase): ExpressRouteFunc {
+export function get_task_by_id(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const id = Number(req.params.id)
@@ -43,7 +43,7 @@ export function getTaskById(db: IDatabase): ExpressRouteFunc {
     }
 }
 
-export function addNewTask(db: IDatabase): ExpressRouteFunc {
+export function add_new_task(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const description = req.body.description
@@ -64,7 +64,7 @@ export function addNewTask(db: IDatabase): ExpressRouteFunc {
     }
 }
 
-export function updateTask(db: IDatabase): ExpressRouteFunc {
+export function update_task(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const id = Number(req.params.id)
@@ -92,7 +92,7 @@ export function updateTask(db: IDatabase): ExpressRouteFunc {
     }
 }
 
-export function deleteTask(db: IDatabase): ExpressRouteFunc {
+export function delete_task(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const id = Number(req.params.id)
