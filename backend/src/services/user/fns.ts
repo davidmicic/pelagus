@@ -12,19 +12,19 @@ export function login(db: IDatabase): ExpressRouteFunc {
             const username = req.body.username
             const password = req.body.password
             if (!username || !password) {
-                errors.badRequest(res)
+                errors.bad_request(res)
                 return
             }
 
             const jwt = await controller.login(db, username, password);
             if (jwt) {
-                responses.okWithPayload(res, jwt)
+                responses.ok_with_payload(res, jwt)
                 return
             }
 
             errors.forbidden(res)
         } catch(e) {
-            errors.internalServerError(res, e)
+            errors.internal_server_error(res, e)
         }
     }
 }

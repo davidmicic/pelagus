@@ -7,49 +7,49 @@ import { Task } from '../../database/entities/Task';
 
 type ExpressRouteFunc = (req: Request, res: Response, next?: NextFunction) => void | Promise<void>;
 
-export function getAllTasks(db: IDatabase): ExpressRouteFunc {
+export function get_all_tasks(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const tasks = await controller.getAllTasks(db);
             if (tasks) {
-                responses.okWithPayload(res, tasks)
+                responses.ok_with_payload(res, tasks)
                 return
             }
             responses.ok(res)
         } catch(e) {
-            errors.internalServerError(res, e)
+            errors.internal_server_error(res, e)
         }
     }
 }
 
-export function getTaskById(db: IDatabase): ExpressRouteFunc {
+export function get_task_by_id(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const id = Number(req.params.id)
             if (!id) {
-                errors.badRequest(res)
+                errors.bad_request(res)
                 return
             }
 
             const task = await controller.getTaskById(db, id);
             if (task) {
-                responses.okWithPayload(res, task)
+                responses.ok_with_payload(res, task)
                 return
             }
             responses.ok(res)
         } catch(e) {
-            errors.internalServerError(res, e)
+            errors.internal_server_error(res, e)
         }
     }
 }
 
-export function addNewTask(db: IDatabase): ExpressRouteFunc {
+export function add_new_task(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const description = req.body.description
             const title = req.body.title
             if (!description || !title) {
-                errors.badRequest(res)
+                errors.bad_request(res)
                 return
             }
 
@@ -58,25 +58,25 @@ export function addNewTask(db: IDatabase): ExpressRouteFunc {
             responses.ok(res)
         } catch(e: any) {
             if (e instanceof Error) {
-                errors.internalServerError(res, e)
+                errors.internal_server_error(res, e)
             }
         }
     }
 }
 
-export function updateTask(db: IDatabase): ExpressRouteFunc {
+export function update_task(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const id = Number(req.params.id)
             if (!id) {
-                errors.badRequest(res)
+                errors.bad_request(res)
                 return
             }
 
             const description = req.body.description
             const title = req.body.title
             if (!description || !title) {
-                errors.badRequest(res)
+                errors.bad_request(res)
                 return
             }
 
@@ -86,19 +86,19 @@ export function updateTask(db: IDatabase): ExpressRouteFunc {
             responses.ok(res)
         } catch(e: any) {
             if (e instanceof Error) {
-                errors.internalServerError(res, e)
+                errors.internal_server_error(res, e)
             }
         }
     }
 }
 
-export function deleteTask(db: IDatabase): ExpressRouteFunc {
+export function delete_task(db: IDatabase): ExpressRouteFunc {
     return async function(req: Request, res: Response) {
         try {
             const id = Number(req.params.id)
 
             if (!id) {
-                errors.badRequest(res)
+                errors.bad_request(res)
                 return
             }
 
@@ -106,7 +106,7 @@ export function deleteTask(db: IDatabase): ExpressRouteFunc {
             responses.ok(res)
         } catch(e: any) {
             if (e instanceof Error) {
-                errors.internalServerError(res, e)
+                errors.internal_server_error(res, e)
             }
         }
     }

@@ -12,21 +12,21 @@ export class Pg implements IDatabase {
         }))
     }
 
-    async getUserByUsernamePass(username: string, password: string): Promise<User> {
+    async get_user_by_username_pass(username: string, password: string): Promise<User> {
         const sql = "SELECT * FROM public.User WHERE username = $1 and password = $2"
         const user: User[] = await this.db.query(sql, [username, password])
 
         return user[0]
     }
 
-    async deleteTask(id: number): Promise<void> {
+    async delete_task(id: number): Promise<void> {
         const sql = "DELETE FROM Task WHERE id = $1";
         await this.db.query(sql, [id])
     }
 
-    async updateTask(update: Task): Promise<void> {
-        const task = await this.getTaskById(update.id);
-        
+    async update_task(update: Task): Promise<void> {
+        const task = await this.get_task_by_id(update.id);
+
         if (!task) {
             throw new Error(`Task with id: ${update.id} does not exist!`)
         }
@@ -43,19 +43,19 @@ export class Pg implements IDatabase {
         await this.db.query(sql, [task.title, task.description, task.id])
     }
 
-    async getTaskById(id: number): Promise<Task> {
+    async get_task_by_id(id: number): Promise<Task> {
         const sql = "SELECT * FROM Task WHERE id = $1"
         const task: Task[] = await this.db.query(sql, [id])
 
         return task[0]
     }
-    
-    async addNewTask(title: string, description: string): Promise<void> {
+
+    async add_new_task(title: string, description: string): Promise<void> {
         const sql = "INSERT INTO Task (title, description) VALUES ($1, $2)";
         await this.db.query(sql, [title, description])
     }
 
-    async getAllTasks(): Promise<Task[]> {
+    async get_all_tasks(): Promise<Task[]> {
         const sql = "SELECT * FROM Task"
         const tasks: Task[] = await this.db.query(sql)
         return tasks
