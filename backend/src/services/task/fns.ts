@@ -3,7 +3,7 @@ import * as controller from "./service"
 import * as errors from "../../responses/errors"
 import { IDatabase } from '../../database/database';
 import * as responses from '../../responses/responses';
-import { Task } from '../../database/entities/Task';
+import { Task } from '../../database/entities/models';
 
 type ExpressRouteFunc = (req: Request, res: Response, next?: NextFunction) => void | Promise<void>;
 
