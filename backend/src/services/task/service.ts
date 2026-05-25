@@ -1,5 +1,5 @@
 import { IDatabase } from "../../database/database"
-import { Task } from "../../database/entities/Task";
+import { Task } from "../../database/entities/models";
 
 export async function get_all_tasks(db: IDatabase): Promise<Task[]> {
     const tasks = await db.get_all_tasks();
