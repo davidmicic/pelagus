@@ -1,0 +1,66 @@
+diff --git a/backend/src/database/entities/Task.ts b/backend/src/database/entities/Task.ts
+deleted file mode 100644
+index 15f8e6c..0000000
+--- a/backend/src/database/entities/Task.ts
++++ /dev/null
+@@ -1,5 +0,0 @@
+-export interface Task {
+-    id: number
+-    title: string
+-    description: string
+-}
+\ No newline at end of file
+diff --git a/backend/src/database/entities/User.ts b/backend/src/database/entities/User.ts
+deleted file mode 100644
+index aaa28e7..0000000
+--- a/backend/src/database/entities/User.ts
++++ /dev/null
+@@ -1,5 +0,0 @@
+-export interface User {
+-    id: number
+-    username: string
+-    password: string
+-}
+\ No newline at end of file
+diff --git a/backend/src/database/entities/models.ts b/backend/src/database/entities/models.ts
+new file mode 100644
+index 0000000..b45d538
+--- /dev/null
++++ b/backend/src/database/entities/models.ts
+@@ -0,0 +1,11 @@
++export class User {
++    public id: number
++    public username: string
++    public password: string
++}
++
++export class Task {
++    public id: number
++    public title: string
++    public description: string
++}
+\ No newline at end of file
+diff --git a/backend/src/services/task/fns.ts b/backend/src/services/task/fns.ts
+index dd8a254..b77a1f1 100644
+--- a/backend/src/services/task/fns.ts
++++ b/backend/src/services/task/fns.ts
+@@ -3,7 +3,7 @@ import * as controller from "./service"
+ import * as errors from "../../responses/errors"
+ import { IDatabase } from '../../database/database';
+ import * as responses from '../../responses/responses';
+-import { Task } from '../../database/entities/Task';
++import { Task } from '../../database/entities/models';
+ 
+ type ExpressRouteFunc = (req: Request, res: Response, next?: NextFunction) => void | Promise<void>;
+ 
+diff --git a/backend/src/services/task/service.ts b/backend/src/services/task/service.ts
+index af6c945..d1d4267 100644
+--- a/backend/src/services/task/service.ts
++++ b/backend/src/services/task/service.ts
+@@ -1,5 +1,5 @@
+ import { IDatabase } from "../../database/database"
+-import { Task } from "../../database/entities/Task";
++import { Task } from "../../database/entities/models";
+ 
+ export async function getAllTasks(db: IDatabase): Promise<Task[]> {
+     const tasks = await db.getAllTasks();
